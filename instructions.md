@@ -9,10 +9,11 @@ Src/
 ├── Domain/          # Core business entities and rules (innermost layer)
 ├── Application/     # Use cases, CQRS handlers, business logic
 ├── Common/          # Shared utilities and cross-cutting concerns
-├── Infrastructure/  # External services, file system, email, etc.
+├── Infrastructure/  # Configurations, External services, file system, email, etc.
 ├── Database/        # Contains DDL, DML Database scripts
 ├── Persistence/     # Database context, repositories, configurations
-├── Presentation/    # Contanins API Controllers, DTO's, and handle HTTP requests
+├── WebAPI/          # Contanins API Controllers, DTO's, and handle HTTP requests
+├── UnitTests/       # Unit Test for all layers
 ```
 
 ## Dependency Flow
@@ -20,7 +21,7 @@ Src/
 - **Domain**: No dependencies (pure business logic)
 - **Application**: Depends on Domain only
 - **Infrastructure/Persistence**: Depend on Application and Domain
-- **WebUI**: Depends on all layers (composition root)
+- **WebAPI**: Depends on all layers (composition root)
 
 ## Key Directories
 
@@ -39,13 +40,11 @@ Src/
   - DbContext and configurations
   - Repository implementations
   - Database migrations
-- **WebUI/**: 
-  - Controllers (API endpoints)
-  - ClientApp/ (Angular SPA)
+- **WebAPI/**: 
+  - Controllers (API endpoints)  
   - Configuration and startup
 
 ### Frontend Structure (`Src/WebUI/ClientApp/`)
-
 ```
 ClientApp/
 ├── public/
@@ -110,10 +109,10 @@ ClientApp/
 
 ## Key Patterns
 
-1. **Dependency Injection**: All dependencies registered in WebUI startup
+1. **Dependency Injection**: All dependencies registered in Web API startup, Program
 2. **CQRS**: Commands for writes, queries for reads via MediatR
 3. **Repository Pattern**: Data access abstraction in Persistence layer
-4. **DTO Mapping**: AutoMapper for entity-to-DTO transformations
+4. **DTO Mapping**: AutoMapper for entity-to-DTO, DTO-to-entity transformations
 5. **Validation**: FluentValidation for input validation
 6. **Clean Separation**: No circular dependencies between layers
 
@@ -135,7 +134,7 @@ ClientApp/
 - **ASP.NET Core Identity** - Authentication and authorization
 - **JWT Bearer Authentication** - Token-based auth
 
-## Frontend (Angular)
+## Frontend (ReactJS)
 
 - **React 18.2** - Frontend framework
 - **TypeScript 5.9** - Primary language
@@ -154,7 +153,7 @@ ClientApp/
 
 ## Build & Deployment
 
-- **Azure Pipelines** - CI/CD
+- **GitHub Actions Pipelines** - CI/CD
 - **NuGet** - Package management
 - **npm** - Frontend package management
 - **dotnet CLI** - Build tooling
